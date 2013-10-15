@@ -38,12 +38,12 @@ class hyper_v (
     subscribe   => Windows_common::Feature['Hyper-V']
   }
 
-  windows_common::feature { 'Hyper-V-Tools':
+  windows_common::configuration::feature { 'Hyper-V-Tools':
      ensure  => $ensure_tools,
      require => Windows_common::Feature['Hyper-V'],
   }
 
-  windows_common::feature { 'Hyper-V-PowerShell':
+  windows_common::configuration::feature { 'Hyper-V-PowerShell':
      ensure  => $ensure_powershell,
      require => Windows_common::Feature['Hyper-V'],
   }

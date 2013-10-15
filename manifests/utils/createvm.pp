@@ -1,4 +1,4 @@
-class createvm {
+class hyper-v::tools::createvm {
 
 
 
