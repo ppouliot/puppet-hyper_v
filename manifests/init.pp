@@ -27,7 +27,7 @@ class hyper_v (
   $ensure_tools      = absent,
 ){
 
-  windows_common::feature { 'Hyper-V':
+  windows_common::configuration::feature { 'Hyper-V':
     ensure => present,
   }
 
@@ -35,16 +35,16 @@ class hyper_v (
     command     => "shutdown.exe /r /t 0",
     path        => $::path,
     refreshonly => true,
-    subscribe   => Windows_common::Feature['Hyper-V']
+    subscribe   => Windows_common::Configuration::Feature['Hyper-V']
   }
 
   windows_common::configuration::feature { 'Hyper-V-Tools':
      ensure  => $ensure_tools,
-     require => Windows_common::Feature['Hyper-V'],
+     require => Windows_common::Configuration::Feature['Hyper-V'],
   }
 
   windows_common::configuration::feature { 'Hyper-V-PowerShell':
      ensure  => $ensure_powershell,
-     require => Windows_common::Feature['Hyper-V'],
+     require => Windows_common::Configuration::Feature['Hyper-V'],
   }
 }
