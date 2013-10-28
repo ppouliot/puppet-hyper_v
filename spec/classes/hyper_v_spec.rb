@@ -33,6 +33,20 @@ describe 'hyper_v', :type => :class do
         should contain_windows_common__configuration__feature('Hyper-V-PowerShell').with( {'ensure' => 'present'} )
       }
     end
+
+    context "with ensure_tools => not present nor absent" do
+      let(:params) {{:ensure_tools => 'ok'}}
+      it {
+        expect { should raise_error(Puppet::Error) }
+      }
+    end
+
+    context "with ensure_powershell => not present nor absent" do
+      let(:params) {{:ensure_powershell => 'ok'}}
+      it {
+        expect { should raise_error(Puppet::Error) }
+      }
+    end
   end
 
   context "on an unsupported OS" do
