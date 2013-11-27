@@ -4,7 +4,7 @@ Puppet::Type.type(:virtual_switch).provide(:virtual_switch) do
   confine    :operatingsystem => :windows
   defaultfor :operatingsystem => :windows
 
-  POWERSHELL =
+  commands :powershell =>
     if File.exists?("#{ENV['SYSTEMROOT']}\\sysnative\\WindowsPowershell\\v1.0\\powershell.exe")
       "#{ENV['SYSTEMROOT']}\\sysnative\\WindowsPowershell\\v1.0\\powershell.exe"
     elsif File.exists?("#{ENV['SYSTEMROOT']}\\system32\\WindowsPowershell\\v1.0\\powershell.exe")
@@ -12,8 +12,6 @@ Puppet::Type.type(:virtual_switch).provide(:virtual_switch) do
     else
       "powershell.exe"
     end
-
-  commands :powershell => POWERSHELL
 
   def create
     if resource[:type] == :External
