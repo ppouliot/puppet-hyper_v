@@ -39,7 +39,7 @@ Contributors
  * Peter Pouliot <peter@pouliot.net>
  * Luis Fernandez Alvarez <luis.fernandez.alvarez@cern.ch>
  * Octavian Ciuhandu <ociuhandu@cloudbasesolutions.com>
- * Vijay Tripathi 
+ * Vijay Tripathi  <vijayt@microsoft.com>
  * Tim Rogers
 
 Copyright and License
