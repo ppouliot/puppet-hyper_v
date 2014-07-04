@@ -6,6 +6,7 @@ This module contains basic configuration tasks for Microsoft Hyper-V. It is stil
  2. Install additional features: Hyper-V module for PowerShell and GUI management tools.
  3. Configure live migration parameters.
  4. Create and configure virtual switches.
+ 5. Configure the folders for the configuration files and virtual disks.
 
 Basic usage
 -----------
@@ -14,6 +15,15 @@ The basic scenario allows the user to configure the **Hyper-V role** and the add
     class { 'hyper_v':
       ensure_powershell => present,
       ensure_tools      => present,
+    }
+
+If you want to customize where **Hyper-V** should put the configuration files or the virtual disks, you can use the following parameters:
+
+    class { 'hyper_v':
+      ensure_powershell         => present,
+      ensure_tools              => present,
+      virtual_hard_disks_folder => 'D:\',
+      virtual_machines_folder   => 'D:\Hyper-V',
     }
 
 To configure **live migration** parameters, an specific class is provided:
