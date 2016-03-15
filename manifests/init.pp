@@ -45,20 +45,20 @@ class hyper_v (
   }
 
   exec {'Hyper-V Restart':
-    command     => "shutdown.exe /r /t 0",
+    command     => 'shutdown.exe /r /t 0',
     path        => $::path,
     refreshonly => true,
-    subscribe   => Windows_common::Configuration::Feature['Hyper-V']
+    subscribe   => Windows_common::Configuration::Feature['Hyper-V'],
   }
 
   windows_common::configuration::feature { 'Hyper-V-Tools':
-     ensure  => $ensure_tools,
-     require => Windows_common::Configuration::Feature['Hyper-V'],
+    ensure  => $ensure_tools,
+    require => Windows_common::Configuration::Feature['Hyper-V'],
   }
 
   windows_common::configuration::feature { 'Hyper-V-PowerShell':
-     ensure  => $ensure_powershell,
-     require => Windows_common::Configuration::Feature['Hyper-V'],
+    ensure  => $ensure_powershell,
+    require => Windows_common::Configuration::Feature['Hyper-V'],
   }
 
   #

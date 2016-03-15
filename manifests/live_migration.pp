@@ -1,16 +1,21 @@
 # == Class: hyper_v::live_migration
 #
-# This class is responsible of configuring the live migration on the Hyper-V hypervisors
+# This class is responsible of configuring
+# the live migration on the Hyper-V hypervisors
 #
 # == Parameters
 #
 # [*enable*]
-#   Specify if the migration should be enabled or not in the hypervisor
+#   Specify if the migration should be
+#   enabled or not in the hypervisor
 # [*authentication_type*]
-#   Determine the authentication method used for migration: 'Kerberos' or 'CredSSP'
+#   Determine the authentication method
+#   used for migration: 'Kerberos' or 'CredSSP'
 # [*allowed_networks*]
-#   Contains a comma separated list of the networks allowed to perform the migration.
-#   If this value is undef, any network will be allowed to perform the live migration.
+#   Contains a comma separated list of the
+#   networks allowed to perform the migration.
+#   If this value is undef, any network will
+#   be allowed to perform the live migration.
 # [*simultaneous_storage_migrations*]
 #   Number of simultaneous storage migrations
 # [*simultaneous_live_migrations*]
@@ -85,7 +90,7 @@ class hyper_v::live_migration(
     }else
     {
       exec{ 'remove-migration-networks':
-        command  => "Remove-VMMigrationNetwork *",
+        command  => 'Remove-VMMigrationNetwork *',
         unless   => 'if (@(Get-VMMigrationNetwork).Count -ne 0){ exit 1 }',
         provider => powershell,
       }
