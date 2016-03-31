@@ -58,8 +58,9 @@
 #
 class hyper_v (
 
-  $ensure_powershell               = $hyper_v::params::ensure_powershell,
-  $ensure_tools                    = $hyper_v::params::ensure_tools,
+  $ensure                          = $hyper_v::params::ensure,
+  $hyperv_powershell               = $hyper_v::params::hyperv_powershell,
+  $hyperv_tools                    = $hyper_v::params::hyperv_tools,
   $virtual_hard_disks_folder       = $hyper_v::params::virtual_hard_disks_folder,
   $virtual_machines_folder         = $hyper_v::params::virtual_machines_folder,
   $enable                          = $hyper_v::params::enable,
@@ -70,18 +71,20 @@ class hyper_v (
 
 ){
 
-
-
-  windows_feature { 'Hyper-V':
-    ensure  => present,
+  windows_feature{'Hyper-V':
+    ensure  => $hyper_v::ensure,
     restart => true,
   }
 
-  if $windows_feature::ensure_tools {
-    windows_feature {[
-      'Hyper-V-Tools',
-      'Hyper-V-PowerShell']:
-      ensure  => present,
+  if $hyper_v::hyperv_tools {
+    windows_feature{'Hyper-V-Tools':
+      ensure  => $hyper_v::ensure,
+      require => Windows_feature['Hyper-V'],
+    }
+  }
+  if $hyper_v::hyperv_powershell {
+    windows_feature{'Hyper-V-PowerShell':
+      ensure  => $hyper_v::ensure,
       require => Windows_feature['Hyper-V'],
     }
   }

@@ -2,8 +2,9 @@
 class hyper_v::params{
 
   # init.pp-variables
-  $ensure_powershell               = present
-  $ensure_tools                    = absent
+  $ensure                          = present
+  $hyperv_tools                    = false
+  $hyperv_powershell               = false
   $virtual_hard_disks_folder       = "$([environment]::GetFolderPath(\"CommonDocuments\"))\Hyper-V\Virtual Hard Disks"
   $virtual_machines_folder         = "$([environment]::GetFolderPath(\"CommonApplicationData\"))\Microsoft\Windows\Hyper-V"
 
