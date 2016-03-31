@@ -5,8 +5,8 @@ class hyper_v::params{
   $ensure                          = present
   $hyperv_tools                    = false
   $hyperv_powershell               = false
-  $virtual_hard_disks_folder       = "$([environment]::GetFolderPath(\"CommonDocuments\"))\Hyper-V\Virtual Hard Disks"
-  $virtual_machines_folder         = "$([environment]::GetFolderPath(\"CommonApplicationData\"))\Microsoft\Windows\Hyper-V"
+  $virtual_hard_disks_folder       = '$([environment]::GetFolderPath(\"CommonDocuments\"))\Hyper-V\Virtual Hard Disks'
+  $virtual_machines_folder         = '$([environment]::GetFolderPath(\"CommonApplicationData\"))\Microsoft\Windows\Hyper-V'
 
   # Live-Migration
   $enable                          = true
