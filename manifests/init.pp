@@ -42,26 +42,22 @@ class hyper_v (
 
 ){
 
-  windows_common::configuration::feature { 'Hyper-V':
-    ensure => present,
+
+
+  windows_feature { 'Hyper-V':
+    ensure  => present,
+    restart => true,
   }
 
-  exec {'Hyper-V Restart':
-    command     => 'shutdown.exe /r /t 0',
-    path        => $::path,
-    refreshonly => true,
-    subscribe   => Windows_common::Configuration::Feature['Hyper-V'],
+  if $windows_feature::ensure_tools {
+    windows_feature {[
+      'Hyper-V-Tools',
+      'Hyper-V-PowerShell']:
+      ensure  => present,
+      require => Windows_feature['Hyper-V'],
+    }
   }
 
-  windows_common::configuration::feature { 'Hyper-V-Tools':
-    ensure  => $ensure_tools,
-    require => Windows_common::Configuration::Feature['Hyper-V'],
-  }
-
-  windows_common::configuration::feature { 'Hyper-V-PowerShell':
-    ensure  => $ensure_powershell,
-    require => Windows_common::Configuration::Feature['Hyper-V'],
-  }
 
   #
   # Configure the host folders
@@ -70,13 +66,13 @@ class hyper_v (
     command  => "Set-VMHost -VirtualHardDiskPath \"${virtual_hard_disks_folder}\"",
     unless   => "if ((Get-VMHost).VirtualHardDiskPath -ne \"${virtual_hard_disks_folder}\") { exit 1 }",
     provider => powershell,
-    require  => Windows_common::Configuration::Feature['Hyper-V'],
+    require  => Windows_feature['Hyper-V'],
   }
 
   exec{ 'ensure-virtual-machines-folder':
     command  => "Set-VMHost -VirtualMachinePath \"${virtual_machines_folder}\"",
     unless   => "if ((Get-VMHost).VirtualMachinePath -ne \"${virtual_machines_folder}\") { exit 1 }",
     provider => powershell,
-    require  => Windows_common::Configuration::Feature['Hyper-V'],
+    require  => Windows_feature['Hyper-V'],
   }
 }
