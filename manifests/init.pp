@@ -34,10 +34,12 @@
 # == Authors
 #
 class hyper_v (
-  $ensure_powershell         = present,
-  $ensure_tools              = absent,
-  $virtual_hard_disks_folder = "$([environment]::GetFolderPath(\"CommonDocuments\"))\Hyper-V\Virtual Hard Disks",
-  $virtual_machines_folder   = "$([environment]::GetFolderPath(\"CommonApplicationData\"))\Microsoft\Windows\Hyper-V",
+
+  $ensure_powershell         = $hyper_v::params::ensure_powershell,
+  $ensure_tools              = $hyper_v::params::ensure_tools,
+  $virtual_hard_disks_folder = $hyper_v::params::virtual_hard_disks_folder
+  $virtual_machines_folder   = $hyper_v::params::virtual_machines_folder
+
 ){
 
   windows_common::configuration::feature { 'Hyper-V':
