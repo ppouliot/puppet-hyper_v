@@ -61,13 +61,12 @@ class hyper_v (
   $ensure_powershell               = $hyper_v::params::ensure_powershell,
   $ensure_tools                    = $hyper_v::params::ensure_tools,
   $virtual_hard_disks_folder       = $hyper_v::params::virtual_hard_disks_folder,
-  $virtual_machines_folder         = $hyper_v::params::virtual_machines_folder
-  $enable                          = $hyper_v::params::enable
+  $virtual_machines_folder         = $hyper_v::params::virtual_machines_folder,
+  $enable                          = $hyper_v::params::enable,
   $authentication_type             = $hyper_v::params::authentication_type,
   $allowed_networks                = $hyper_v::params::allowed_networks,
   $simultaneous_storage_migrations = $hyper_v::params::simultaneous_storage_migrations,
-  $simultaneous_live_migrations    = $hyper_v::params::simultaneous_live_migrations,
-
+  $simultaneous_live_migrations    = $hyper_v::params::simultaneous_live_migrations
 
 ){
 
