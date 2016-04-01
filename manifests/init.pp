@@ -74,18 +74,16 @@ class hyper_v (
   windows_feature{'Hyper-V':
     ensure  => $hyper_v::ensure,
     restart => true,
-  }
+  } ->
 
   if $hyper_v::hyperv_tools {
     windows_feature{'Hyper-V-Tools':
       ensure  => $hyper_v::ensure,
-      require => Windows_feature['Hyper-V'],
     }
   }
   if $hyper_v::hyperv_powershell {
     windows_feature{'Hyper-V-PowerShell':
       ensure  => $hyper_v::ensure,
-      require => Windows_feature['Hyper-V'],
     }
   }
 
