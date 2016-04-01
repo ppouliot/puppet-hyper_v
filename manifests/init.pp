@@ -69,7 +69,7 @@ class hyper_v (
   $simultaneous_storage_migrations = $hyper_v::params::simultaneous_storage_migrations,
   $simultaneous_live_migrations    = $hyper_v::params::simultaneous_live_migrations
 
-){
+) inherits hyper_v::params {
 
   windows_feature{'Hyper-V':
     ensure  => $hyper_v::ensure,
