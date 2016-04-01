@@ -57,7 +57,6 @@
 # == Authors
 #
 class hyper_v (
-
   $ensure                          = $hyper_v::params::ensure,
   $hyperv_powershell               = $hyper_v::params::hyperv_powershell,
   $hyperv_tools                    = $hyper_v::params::hyperv_tools,
@@ -68,13 +67,12 @@ class hyper_v (
   $allowed_networks                = $hyper_v::params::allowed_networks,
   $simultaneous_storage_migrations = $hyper_v::params::simultaneous_storage_migrations,
   $simultaneous_live_migrations    = $hyper_v::params::simultaneous_live_migrations
-
 ) inherits hyper_v::params {
 
   windows_feature{'Hyper-V':
     ensure  => $hyper_v::ensure,
     restart => true,
-  } ->
+  }
 
   if $hyper_v::hyperv_tools {
     windows_feature{'Hyper-V-Tools':
