@@ -5,6 +5,11 @@
 # MAC spoofing must be enabled. This allows each container to receive an IP Address.
 # To enable MAC address spoofing, run the following command on the Hyper-V host.
 # The VMName property will be the name of the container host.
+#   Enable Command:
+#   'Get-VMNetworkAdapter -VMName <VM Name> | Set-VMNetworkAdapter -MacAddressSpoofing On'
+#   Disable Command:
+#   'Get-VMNetworkAdapter -VMName <VM Name> | Set-VMNetworkAdapter -MacAddressSpoofing Off'
+#
 define hyper_v::mac_address_spoofing($spoofing){
   validate_re($spoofing, '^(On|Off)$', 'valid values for spoofing are \'On\' or \'Off\'')
   exec{"configure_mac_address_spoofing-${name}":

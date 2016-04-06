@@ -5,6 +5,11 @@
 # If hyper-v or container features will be running on a Hyper-V virtual machine, and will
 # also be hosting Hyper-V VMs or Containers, nested virtualization needs to be enabled.
 # This can be completed with the following PowerShell command.
+#   Enable Command:
+#    'Set-VMProcessor -VMName <VM Name> -ExposeVirtualizationExtensions $true',
+#   Disable Command:
+#    'Set-VMProcessor -VMName <VM Name> -ExposeVirtualizationExtensions $false',
+#
 define hyper_v::nested_virtualization($expose_virtualization_extensions) { 
   validate_re($name,'You must name a valid virtual machine name on this host')
   validate_bool($expose_virtual_extensions)
