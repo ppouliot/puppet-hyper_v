@@ -1,0 +1,28 @@
+{
+  "name": "puppet-hyper_v",
+  "version": "0.0.1",
+  "author": "Peter J. Pouliot",
+  "summary": "A puppet module to configure Containers on Windows 2016 Platforms",
+  "license": "Apache 2.0",
+  "source": "https://github.com/openstack-hyper-v/puppet-hyper_v",
+  "project_page": "https://github.com/openstack-hyper-v/puppet-hyper_v",
+  "issues_url": "https://github.com/openstack-hyper-v/puppet-hyper_v/issues",
+  "tags": ["windows", "virtualization", "powershell", "hyper-v"],
+  "operatingsystem_support": [
+    {
+    "operatingsystem": "windows",
+    "operatingsystemrelease": [
+        "2012",
+        "2012 R2",
+        "2016",
+        "8"
+    ]
+   }
+  ],
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"},
+    {"name":"puppetlabs-powershell","version_requirement":">= 1.0.1"},
+    {"name":"puppet-windowsfeature","version_requirement":">= 1.0.1"},
+  ]
+}
+
