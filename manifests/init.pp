@@ -69,39 +69,14 @@ class hyper_v (
   $simultaneous_live_migrations    = $hyper_v::params::simultaneous_live_migrations
 ) inherits hyper_v::params {
 
-  windowsfeature{'Hyper-V':
-    ensure  => $hyper_v::ensure,
-    restart => true,
-  }
+  validate_re($ensure, '^(present|absent)$', 'valid values for ensure are \'present\' or \'absent\'')
 
-  if $hyper_v::hyperv_tools {
-    windowsfeature{'Hyper-V-Tools':
-      ensure  => $hyper_v::ensure,
-      require => Windowsfeature['Hyper-V'],
-    }
-  }
-  if $hyper_v::hyperv_powershell {
-    windowsfeature{'Hyper-V-PowerShell':
-      ensure  => $hyper_v::ensure,
-      require => Windowsfeature['Hyper-V'],
-    }
-  }
+  class{'hyper_v::deploy':} ->
+  class{'hyper_v::folders':} ->
+  class{'hyper_v::config':}
 
+  contain 'hyper_v::deploy'
+  contain 'hyper_v::folders'
+  contain 'hyper_v::config'
 
-  #
-  # Configure the host folders
-  #
-  exec{ 'ensure-virtual-hard-disk-folder':
-    command  => "Set-VMHost -VirtualHardDiskPath \"${virtual_hard_disks_folder}\"",
-    unless   => "if ((Get-VMHost).VirtualHardDiskPath -ne \"${virtual_hard_disks_folder}\") { exit 1 }",
-    provider => powershell,
-    require  => Windowsfeature['Hyper-V'],
-  }
-
-  exec{ 'ensure-virtual-machines-folder':
-    command  => "Set-VMHost -VirtualMachinePath \"${virtual_machines_folder}\"",
-    unless   => "if ((Get-VMHost).VirtualMachinePath -ne \"${virtual_machines_folder}\") { exit 1 }",
-    provider => powershell,
-    require  => Windowsfeature['Hyper-V'],
-  }
 }

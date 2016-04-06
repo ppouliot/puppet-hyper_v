@@ -12,8 +12,6 @@ define hyper_v::nested_virtualization($expose_virtualization_extensions) {
     command   => "Set-VMProcessor -VMName ${name} -ExposeVirtualizationExtensions \$${expose_virtualization_extensions}",
     provider  => powershell,
     logoutput => true,
-    require   => Class['windows_container::config']
+    require   => Class['hyper_v::config']
   }
 }
-
-
