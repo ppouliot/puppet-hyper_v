@@ -10,9 +10,9 @@
 #   Disable Command:
 #    'Set-VMProcessor -VMName <VM Name> -ExposeVirtualizationExtensions $false',
 #
-define hyper_v::nested_virtualization($expose_virtualization_extensions) { 
+define hyper_v::nested_virtualization($expose_virtualization_extensions) {
   validate_re($name,'You must name a valid virtual machine name on this host')
-  validate_bool($expose_virtual_extensions)
+  validate_bool($::expose_virtual_extensions)
   exec{"configure_nested_virtualization-${name}":
     command   => "Set-VMProcessor -VMName ${name} -ExposeVirtualizationExtensions \$${expose_virtualization_extensions}",
     provider  => powershell,
