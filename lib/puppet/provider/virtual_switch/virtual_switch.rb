@@ -36,8 +36,8 @@ Puppet::Type.type(:virtual_switch).provide(:virtual_switch) do
   end
 
   def type
-    type = powershell(%/(Get-VMSwitch "#{resource[:name]}").SwitchType/)
-    type =~/^(.*)/
+    type = powershell(%/(Get-VMSwitch "#{resource[:name]}") | FL SwitchType/)
+    type =~/^SwitchType : (.*)/
     $1
   end
   def type=(value)
@@ -49,8 +49,8 @@ Puppet::Type.type(:virtual_switch).provide(:virtual_switch) do
   end
 
   def notes
-    notes = powershell(%/(Get-VMSwitch "#{resource[:name]}").Notes/)
-    notes =~ /^(.*)/
+    notes = powershell(%/Get-VMSwitch "#{resource[:name]}" |FL Notes/)
+    notes =~ /^Notes : (.*)/
     $1
   end
   def notes=(value)
@@ -77,8 +77,8 @@ Puppet::Type.type(:virtual_switch).provide(:virtual_switch) do
   end
 
   def os_managed
-    os_managed = powershell(%/(Get-VMSwitch "#{resource[:name]}").AllowManagementOS/)
-    os_managed =~ /^(.*)/
+    os_managed = powershell(%/(Get-VMSwitch "#{resource[:name]}") | FL AllowManagementOS/)
+    os_managed =~ /^AllowManagementOS : (.*)/
     case $1
     when 'True'
       true
